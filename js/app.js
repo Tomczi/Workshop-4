@@ -21,6 +21,18 @@ $(document).ready(function() {
             })
 
         })
+
+        rootDiv.on("click" , ".delete-button", function(event) {
+            event.stopPropagation();
+            var bookId = $(this).parent().data("id");
+            $.ajax({
+                url: "http://localhost:8282/books/" + bookId,
+                type: "DELETE"
+            }).done(function() {
+                    refreshBooks(rootDiv);
+            })
+
+        })
         
     })
 
@@ -68,7 +80,7 @@ $(document).ready(function() {
                 var bookElement =
                  $("<div class='book' data-id='" 
                  + data[i].id + "'>" 
-                 +data[i].title
+                 +data[i].title  + "<button class='delete-button'>Usun</button>"
                   + "<div style='display: none;'>"
                   + "</div>"
                  + "</div>")
